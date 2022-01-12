@@ -7,4 +7,8 @@ def hello_world():
 @app.route("/home", methods=['POST','GET'])
 def home_page():
     return "<h1>It is our home page!</h1>"
+@app.route("/store")
+def store():
+    return "<h1>It is our Store!</h1>"
+
 
