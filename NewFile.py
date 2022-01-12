@@ -10,5 +10,7 @@ def home_page():
 @app.route("/store")
 def store():
     return "<h1>It is our Store!</h1>"
+if __name__ == "__main__":
+    app.run(debug=True)
 
 
