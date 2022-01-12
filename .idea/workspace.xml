@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e244bae5-683c-47a9-b133-a24eb1bdd37a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/flask1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewFile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +31,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1642013803342</updated>
+      <workItem from="1642014224026" duration="67000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
