@@ -1,5 +1,5 @@
 from faker import Faker
-from sqlalch import db, PoetsModel, PoemsModel
+from sqlalch import db, PoetsModel, PoemsModel, UserModel
 poet_data = [{"poet_id": 1, "poet_name": "მირზა გელოვანი","birth_date": "2 მარტი, 1917","death_date": "ივლისი 1944"},
              {"poet_id": 2,"poet_name": "გალაქტიონ ტაბიძე","birth_date": "17 ნოემბერი, 1891","death_date": "17 მარტი, 1959"},
               {"poet_id": 3, "poet_name": "ლადო ასათიანი", "birth_date": "14 იანვარი, 1917","death_date": "23 ივნისი, 1943"},
@@ -21,6 +21,12 @@ for i in poem_data:
     db.session.add(poet)
     db.session.commit()
 
+
+# fake = Faker()
+# for i in range(1,50):
+#     user = UserModel(username=fake.name(), email=fake.email(),passford=fake.name())
+#     db.session.add(poet)
+#     db.session.commit()
 # fake = Faker()
 # for i in range(1,200):
 #     poet = PoetsModel(poet_name=fake.name(), birth_date=fake.date(),death_date=fake.date())
