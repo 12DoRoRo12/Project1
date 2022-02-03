@@ -1,5 +1,6 @@
 from faker import Faker
 from sqlalch import db, PoetsModel, PoemsModel, UserModel
+db.create_all()
 poet_data = [{"poet_id": 1, "poet_name": "მირზა გელოვანი","birth_date": "2 მარტი, 1917","death_date": "ივლისი 1944"},
              {"poet_id": 2,"poet_name": "გალაქტიონ ტაბიძე","birth_date": "17 ნოემბერი, 1891","death_date": "17 მარტი, 1959"},
               {"poet_id": 3, "poet_name": "ლადო ასათიანი", "birth_date": "14 იანვარი, 1917","death_date": "23 ივნისი, 1943"},
