@@ -105,47 +105,6 @@ class User(Resource):
         db.session.commit()
         return f"User with id {user_id} has been deleted"
 
-class Poem(Resource):
-    @marshal_with(resource_poems)
-    def get(self, poem_id):
-        if poem_id == 000:
-            return PoemsModel.query.all()
-        args = poemparser.parse_args()
-        poem = PoemsModel.query.filter_by(poem_id=poem_id).first()
-        return poem
-
-    @marshal_with(resource_poems)
-    @jwt_required()
-    def post(self, poem_id):
-        args = poemparser.parse_args()
-        poem = PoemsModel(poem_title=args["poem_title"], youtube_link=args["youtube_link"],creator_id=args["creator_id"])
-        db.session.add(poem)
-        db.session.commit()
-        return "Item has been inserted!"
-
-    @marshal_with(resource_poems)
-    @jwt_required()
-    def put(self, poem_id):
-        args = poemparser.parse_args()
-        poem = PoemsModel.query.filter_by(poem_id=poem_id).first()
-        if poem == None:
-            poem = PoemsModel(poem_title=args["poem_title"], youtube_link=args["youtube_link"],creator_id=args["creator_id"])
-        else:
-            poem.poem_title = args["poem_title"]
-            poem.youtube_link = args["youtube_link"]
-            poem.creator_id = args["creator_id"]
-        db.session.add(poem)
-        db.session.commit()
-        return "updated"
-
-    # @marshal_with(resource_poems)
-    @jwt_required()
-    def delete(self, poem_id):
-        poem = PoemsModel.query.filter_by(poem_id=poem_id).first()
-        db.session.delete(poem)
-        db.session.commit()
-        return f"Poem with id {poem_id} has been deleted"
-
 class Poet(Resource):
     @marshal_with(resource_poets)
     def get(self, poet_id):
@@ -186,6 +145,53 @@ class Poet(Resource):
         db.session.delete(poet)
         db.session.commit()
         return f"Poet with id {poet_id} has been deleted"
+
+
+class Poem(Resource):
+    @marshal_with(resource_poems)
+    def get(self, poem_id):
+        if poem_id == 000:
+            return PoemsModel.query.all()
+        args = poemparser.parse_args()
+        poem = PoemsModel.query.filter_by(poem_id=poem_id).first()
+        return poem
+
+    @marshal_with(resource_poems)
+    @jwt_required()
+    def post(self, poem_id):
+        args = poemparser.parse_args()
+        if PoetsModel.query.filter_by(poet_id=args["creator_id"]).first():
+            poem = PoemsModel(poem_title=args["poem_title"], youtube_link=args["youtube_link"],creator_id=args["creator_id"])
+            db.session.add(poem)
+            db.session.commit()
+            return "Item has been inserted!"
+        else:
+            return "Given creator_id doesn't exist"
+
+    @marshal_with(resource_poems)
+    @jwt_required()
+    def put(self, poem_id):
+        args = poemparser.parse_args()
+        poem = PoemsModel.query.filter_by(poem_id=poem_id).first()
+        if poem == None:
+            poem = PoemsModel(poem_title=args["poem_title"], youtube_link=args["youtube_link"],creator_id=args["creator_id"])
+        else:
+            poem.poem_title = args["poem_title"]
+            poem.youtube_link = args["youtube_link"]
+            poem.creator_id = args["creator_id"]
+        db.session.add(poem)
+        db.session.commit()
+        return "updated"
+
+    # @marshal_with(resource_poems)
+    @jwt_required()
+    def delete(self, poem_id):
+        poem = PoemsModel.query.filter_by(poem_id=poem_id).first()
+        db.session.delete(poem)
+        db.session.commit()
+        return f"Poem with id {poem_id} has been deleted"
+
+
 
 class Register(Resource):
     @marshal_with(resource_register)
@@ -240,9 +246,9 @@ class PoemsModel(db.Model):
     def __repr__(self):
         return f"Poem {self.poem_title}"
 
-@app.before_first_request
-def before_first_request():
-    import seed
+# @app.before_first_request
+# def before_first_request():
+#     import seed
 # db.create_all()
 # quit()
 
