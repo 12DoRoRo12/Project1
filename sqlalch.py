@@ -246,11 +246,16 @@ class PoemsModel(db.Model):
     def __repr__(self):
         return f"Poem {self.poem_title}"
 
-# @app.before_first_request
-# def before_first_request():
-#     import seed
-# db.create_all()
-# quit()
+
+
+@app.before_first_request
+def before_first_request():
+    db.create_all()
+    # quit()
+    import seed
+    seed.create_database()
+
+
 
 api.add_resource(User, '/user/<int:user_id>')
 api.add_resource(Poet, '/poet/<int:poet_id>')
