@@ -150,7 +150,7 @@ class Poet(Resource):
 class Poem(Resource):
     @marshal_with(resource_poems)
     def get(self, poem_id):
-        if poem_id == 000:
+        if poem_id == 999:
             return PoemsModel.query.all()
         args = poemparser.parse_args()
         poem = PoemsModel.query.filter_by(poem_id=poem_id).first()
