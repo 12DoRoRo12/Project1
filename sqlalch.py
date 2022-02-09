@@ -65,7 +65,7 @@ class User(Resource):
     @marshal_with(resource_user)
     # @jwt_required()
     def get(self, user_id):
-        if user_id == "999":
+        if user_id == 999:
             return UserModel.query.all()
         args = userparser.parse_args()
         user = UserModel.query.filter_by(id=user_id).first()
