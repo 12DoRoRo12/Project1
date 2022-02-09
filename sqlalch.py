@@ -65,7 +65,7 @@ class User(Resource):
     @marshal_with(resource_user)
     # @jwt_required()
     def get(self, user_id):
-        if user_id == 999:
+        if user_id == "999":
             return UserModel.query.all()
         args = userparser.parse_args()
         user = UserModel.query.filter_by(id=user_id).first()
@@ -209,12 +209,12 @@ class Auth(Resource):
         password = request.json.get("password", None)
 
         user = UserModel.query.filter_by(email=email).first_or_404()
-        if user == None:
-            return {"msg": "Email was not found"}
-        if email != user.email or check_password_hash(user.password,password) == False:
-            return jsonify({"msg": "Bad email or password"}), 401
-        access_token = create_access_token(identity=user.username)
-        return jsonify(access_token=access_token)
+        if user != None and check_password_hash(user.password, password) == True:
+            access_token = create_access_token(identity=user.username)
+            return jsonify(access_token=access_token)
+        else:
+            return jsonify({"msg": "Email or password is wrong"})
+
 
 class UserModel(db.Model):
     __tablename__ = "users"
@@ -267,4 +267,3 @@ api.add_resource(Register, '/register')
 
 if __name__ == "__main__":
     app.run(debug=True)
-
