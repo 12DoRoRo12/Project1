@@ -1,7 +1,9 @@
 from faker import Faker
 from werkzeug.security import generate_password_hash
 from sqlalch import db, PoetsModel, PoemsModel, UserModel
-db.create_all()
+
+# db.create_all()
+
 user_data = [{"user_id": "1", "username": "Nika Tsitskishvili", "email": "n.tsitskishvili@gmail.com", "password": "astalavista"}, {"user_id": "2", "username": "Emilly Berger", "email": "e.berger@gmail.com", "password": "wonderpas"},
              {"user_id": "3", "username": "James Hope", "email": "j.hope@yahoo.com", "password": "amptylife123"},{"user_id": "4", "username": "Ketty Higgins", "email": "k.higgins.1@iliauni.@edu.ge", "password": "studentgreen"},
              {"user_id": "5", "username": "Harry Bing", "email": "h.bing@gmail.com", "password": "kenjimiazava2021"}]
@@ -31,8 +33,10 @@ def create_database():
         db.session.add(poet)
         db.session.commit()
 
-
-
+# create_database()
+#
+# if __name__ == "__main__":
+#     create_database()
 
 # fake = Faker()
 # for i in range(1,50):

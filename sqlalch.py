@@ -39,6 +39,15 @@ resource_register = {
     "password": fields.String
 }
 
+resource_authentification = {
+    "email": fields.String,
+    "password": fields.String
+}
+
+authentificationparser = reqparse.RequestParser()
+authentificationparser.add_argument("email", type=str, required=True, help='Email must be string')
+authentificationparser.add_argument("password", type=str, required=True, help='Email must be string')
+
 registerparser = reqparse.RequestParser()
 registerparser.add_argument("username", type=str, help='user_name must be string')
 registerparser.add_argument("email", type=str, required=True, help='Email must be string')
@@ -63,7 +72,7 @@ poemparser.add_argument("creator_id", type=int, help='User_id must be integer')
 
 class User(Resource):
     @marshal_with(resource_user)
-    # @jwt_required()
+    @jwt_required()
     def get(self, user_id):
         if user_id == 999:
             return UserModel.query.all()
@@ -203,13 +212,13 @@ class Register(Resource):
         return {"msg": "Created"}, 201
 
 class Auth(Resource):
-    # @marshal_with(resource_user)
+    @marshal_with(resource_authentification)
     def post(self):
         email = request.json.get("email", None)
         password = request.json.get("password", None)
 
         user = UserModel.query.filter_by(email=email).first_or_404()
-        if user != None and check_password_hash(user.password, password) == True:
+        if user is not None and check_password_hash(user.password, password) is True:
             access_token = create_access_token(identity=user.username)
             return jsonify(access_token=access_token)
         else:
@@ -240,7 +249,7 @@ class PoemsModel(db.Model):
     __tablename__ = 'poems'
     poem_id = db.Column(db.Integer, primary_key=True)
     poem_title = db.Column(db.String(20), nullable=False)
-    youtube_link = db.Column(db.String(80), nullable=False)
+    youtube_link = db.Column(db.String(80), unique=True, nullable=False)
     creator_id = db.Column(db.Integer, db.ForeignKey('poets.poet_id'), nullable=False)
 
     def __repr__(self):
@@ -251,10 +260,15 @@ class PoemsModel(db.Model):
 @app.before_first_request
 def before_first_request():
     db.create_all()
-    # quit()
     import seed
     seed.create_database()
 
+# try:
+#     db.create_all()
+#     import seed
+#     seed.create_database()
+# except FileExistsError:
+#     pass
 
 
 api.add_resource(User, '/user/<int:user_id>')
