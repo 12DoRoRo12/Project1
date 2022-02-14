@@ -2,7 +2,7 @@ from faker import Faker
 from werkzeug.security import generate_password_hash
 from sqlalch import db, PoetsModel, PoemsModel, UserModel
 
-# db.create_all()
+
 
 user_data = [{"user_id": "1", "username": "Nika Tsitskishvili", "email": "n.tsitskishvili@gmail.com", "password": "astalavista"}, {"user_id": "2", "username": "Emilly Berger", "email": "e.berger@gmail.com", "password": "wonderpas"},
              {"user_id": "3", "username": "James Hope", "email": "j.hope@yahoo.com", "password": "amptylife123"},{"user_id": "4", "username": "Ketty Higgins", "email": "k.higgins.1@iliauni.@edu.ge", "password": "studentgreen"},
@@ -32,7 +32,7 @@ def create_database():
         poet = PoemsModel(poem_title=i["poem_title"], youtube_link=i["youtube_link"], creator_id=i["creator_id"])
         db.session.add(poet)
         db.session.commit()
-
+# db.create_all()
 # create_database()
 #
 # if __name__ == "__main__":

@@ -39,14 +39,6 @@ resource_register = {
     "password": fields.String
 }
 
-resource_authentification = {
-    "email": fields.String,
-    "password": fields.String
-}
-
-authentificationparser = reqparse.RequestParser()
-authentificationparser.add_argument("email", type=str, required=True, help='Email must be string')
-authentificationparser.add_argument("password", type=str, required=True, help='Email must be string')
 
 registerparser = reqparse.RequestParser()
 registerparser.add_argument("username", type=str, help='user_name must be string')
@@ -212,7 +204,7 @@ class Register(Resource):
         return {"msg": "Created"}, 201
 
 class Auth(Resource):
-    @marshal_with(resource_authentification)
+    # @marshal_with(resource_user)
     def post(self):
         email = request.json.get("email", None)
         password = request.json.get("password", None)
@@ -263,12 +255,7 @@ def before_first_request():
     import seed
     seed.create_database()
 
-# try:
-#     db.create_all()
-#     import seed
-#     seed.create_database()
-# except FileExistsError:
-#     pass
+
 
 
 api.add_resource(User, '/user/<int:user_id>')
