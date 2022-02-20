@@ -248,13 +248,13 @@ class PoemsModel(db.Model):
         return f"Poem {self.poem_title}"
 
 
-try:
-    @app.before_first_request
-    def before_first_request():
-        db.create_all()
-        import seed
-        seed.create_database()
-except: FileExistsError
+
+# @app.before_first_request
+# def before_first_request():
+#     db.create_all()
+#     import seed
+#     seed.create_database()
+
 
 
 
