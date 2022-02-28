@@ -4,9 +4,9 @@ from sqlalch import db, PoetsModel, PoemsModel, UserModel
 
 
 
-user_data = [{"user_id": "1", "username": "Nika Tsitskishvili", "email": "n.tsitskishvili@gmail.com", "password": "astalavista"}, {"user_id": "2", "username": "Emilly Berger", "email": "e.berger@gmail.com", "password": "wonderpas"},
-             {"user_id": "3", "username": "James Hope", "email": "j.hope@yahoo.com", "password": "amptylife123"},{"user_id": "4", "username": "Ketty Higgins", "email": "k.higgins.1@iliauni.@edu.ge", "password": "studentgreen"},
-             {"user_id": "5", "username": "Harry Bing", "email": "h.bing@gmail.com", "password": "kenjimiazava2021"}]
+user_data = [{"id": "1", "username": "Nika Tsitskishvili", "email": "n.tsitskishvili@gmail.com", "password": "astalavista"}, {"user_id": "2", "username": "Emilly Berger", "email": "e.berger@gmail.com", "password": "wonderpas"},
+             {"id": "3", "username": "James Hope", "email": "j.hope@yahoo.com", "password": "amptylife123"},{"user_id": "4", "username": "Ketty Higgins", "email": "k.higgins.1@iliauni.@edu.ge", "password": "studentgreen"},
+             {"id": "5", "username": "Harry Bing", "email": "h.bing@gmail.com", "password": "kenjimiazava2021"}]
 
 poet_data = [{"poet_id": 1, "poet_name": "Mirza Gelovani","birth_date": "2 March, 1917","death_date": "July 1944"},
              {"poet_id": 2,"poet_name": "Galaktion Tabidze","birth_date": "17 November, 1891","death_date": "17 March, 1959"},

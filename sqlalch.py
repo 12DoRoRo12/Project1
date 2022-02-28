@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 jwt = JWTManager(app)
 
 resource_users = {
-    "user_id": fields.Integer,
+    "id": fields.Integer,
     "username": fields.String,
     "email": fields.String,
     "password": fields.String
@@ -219,7 +219,7 @@ class Auth(Resource):
 
 class UserModel(db.Model):
     __tablename__ = "users"
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(40), nullable=False)
