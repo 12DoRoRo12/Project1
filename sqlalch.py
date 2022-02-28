@@ -193,12 +193,6 @@ class Poem(Resource):
         return f"Poem with id {poem_id} has been deleted"
 
 
-class Poem_by_Author(Resource):
-    @marshal_with(resource_poems)
-    def get(self, creator_id):
-        args = poemparser.parse_args()
-        poems = PoemsModel.query.filter_by(creator_id=creator_id).all()
-        return poems
 
 class Register(Resource):
     @marshal_with(resource_register)
@@ -268,7 +262,6 @@ class PoemsModel(db.Model):
 api.add_resource(User, '/user/<int:user_id>')
 api.add_resource(Poet, '/poet/<int:poet_id>')
 api.add_resource(Poem, '/poem/<int:poem_id>')
-api.add_resource(Poem_by_Author, '/byauthor/<int:creator_id>')
 api.add_resource(Auth, '/login')
 api.add_resource(Register, '/register')
 
