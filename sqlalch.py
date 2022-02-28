@@ -13,8 +13,8 @@ app.config["JWT_SECRET_KEY"] = "our-secret-key" #must be changed
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
 
-resource_user = {
-    "id": fields.Integer,
+resource_users = {
+    "user_id": fields.Integer,
     "username": fields.String,
     "email": fields.String,
     "password": fields.String
@@ -63,7 +63,7 @@ poemparser.add_argument("youtube_link", type=str, help='Body must be string')
 poemparser.add_argument("creator_id", type=int, help='User_id must be integer')
 
 class User(Resource):
-    @marshal_with(resource_user)
+    @marshal_with(resource_users)
     @jwt_required()
     def get(self, user_id):
         if user_id == 999:
@@ -72,7 +72,7 @@ class User(Resource):
         user = UserModel.query.filter_by(id=user_id).first()
         return user
 
-    @marshal_with(resource_user)
+
     @jwt_required()
     def post(self, user_id):
         args = userparser.parse_args()
@@ -82,7 +82,7 @@ class User(Resource):
         db.session.commit()
         return "inserted"
 
-    @marshal_with(resource_user)
+
     # @jwt_required()
     def put(self, user_id):
         args = userparser.parse_args()
@@ -115,7 +115,7 @@ class Poet(Resource):
         poet = PoetsModel.query.filter_by(poet_id=poet_id).first()
         return poet
 
-    @marshal_with(resource_poets)
+
     @jwt_required()
     def post(self, poet_id):
         args = poetparser.parse_args()
@@ -124,7 +124,7 @@ class Poet(Resource):
         db.session.commit()
         return "inserted"
 
-    @marshal_with(resource_poets)
+
     @jwt_required()
     def put(self, poet_id):
         args = poetparser.parse_args()
@@ -139,7 +139,7 @@ class Poet(Resource):
         db.session.commit()
         return "updated"
 
-    # @marshal_with(resource_poets)
+
     @jwt_required()
     def delete(self, poet_id):
         poet = PoetsModel.query.filter_by(poet_id=poet_id).first()
@@ -157,7 +157,7 @@ class Poem(Resource):
         poem = PoemsModel.query.filter_by(poem_id=poem_id).first()
         return poem
 
-    @marshal_with(resource_poems)
+
     @jwt_required()
     def post(self, poem_id):
         args = poemparser.parse_args()
@@ -169,7 +169,7 @@ class Poem(Resource):
         else:
             return "Given creator_id doesn't exist"
 
-    @marshal_with(resource_poems)
+
     @jwt_required()
     def put(self, poem_id):
         args = poemparser.parse_args()
@@ -204,7 +204,7 @@ class Register(Resource):
         return {"msg": "Created"}, 201
 
 class Auth(Resource):
-    # @marshal_with(resource_user)
+    # @marshal_with(resource_users)
     def post(self):
         email = request.json.get("email", None)
         password = request.json.get("password", None)
@@ -219,7 +219,7 @@ class Auth(Resource):
 
 class UserModel(db.Model):
     __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(40), nullable=False)
